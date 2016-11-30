@@ -62,7 +62,7 @@ public class PaymentApiService extends ApiService {
 
     public Request<CreditCard> authorizeCreditCard(RegistrationParams registrationParams) {
         return new Request<>(this, CreditCard.class)
-                .endpoint("cardregistration/")
+                .endpoint("")//.endpoint("cardregistration/")
                 .method(POST)
                 .body(registrationParams);
     }
@@ -129,6 +129,7 @@ public class PaymentApiService extends ApiService {
          * @param callback              Result callback
          */
         public static Request registerCreditCard(RegistrationParams registrationParams, final ICardRegistrationCallback callback) {
+
             Request<CreditCard> request = createService().authorizeCreditCard(registrationParams);
             request.execute(new Callback<CreditCard>() {
                 @Override

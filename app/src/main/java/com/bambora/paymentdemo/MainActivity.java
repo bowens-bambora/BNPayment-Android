@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
      * This is a test merchant number that can be used for testing Native Payment.
      * Please replace this with your own merchant number after signing up with Bambora.
      */
-    private static final String MERCHANT_ACCOUNT = "T638003301";
+    private static final String MERCHANT_ACCOUNT = "T979737701";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +111,10 @@ public class MainActivity extends AppCompatActivity {
         String paymentId = "test-payment-" + new Date().getTime();
         PaymentSettings paymentSettings = new PaymentSettings();
         paymentSettings.amount = 100;
-        paymentSettings.currency = "SEK";
+        paymentSettings.currency = "EUR";
         paymentSettings.comment = "This is a test transaction.";
         paymentSettings.creditCardToken = creditCard.getCreditCardToken();
+        System.out.println("Payment: "+paymentSettings.getSerialized());
         BNPaymentHandler.getInstance().makeTransaction(paymentId, paymentSettings, new ITransactionListener() {
             @Override
             public void onTransactionSuccess() {

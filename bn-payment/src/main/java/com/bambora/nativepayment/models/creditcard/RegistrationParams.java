@@ -67,6 +67,13 @@ public class RegistrationParams implements IJsonRequest {
     public List<EncryptedSessionKey> encryptedSessionKeys;
     public String binNumber;
 
+    // <TEMP>
+    public String pan;
+    public String expMo;
+    public String expYr;
+    public String cvd;
+    // </TEMP>
+
     private final Crypto crypto;
     private final CertificateManager certificateManager;
 
@@ -98,6 +105,14 @@ public class RegistrationParams implements IJsonRequest {
         }
         try {
             SecretKey sessionKey = generateSessionKey();
+
+            // <TEMP>
+            this.pan = cardNumber;
+            this.expMo = expiryMonth;
+            this.expYr = expiryYear;
+            this.cvd = securityCode;
+            // </TEMP>
+
             this.encryptedCard = new CardDetails(cardNumber, securityCode, expiryMonth, expiryYear).encrypt(sessionKey);
             encryptSessionKey(context, sessionKey, new ISessionKeyEncryptionListener() {
                 @Override
@@ -124,7 +139,14 @@ public class RegistrationParams implements IJsonRequest {
     public String getSerialized() {
         JSONObject jsonObject = new JSONObject();
         try {
-            if (encryptedCard != null) {
+            // <TEMP>
+            jsonObject.put("number", pan);
+            jsonObject.put("expiry_month", expMo);
+            jsonObject.put("expiry_year", expYr);
+            jsonObject.put("cvd", cvd);
+            // </TEMP>
+
+            /*if (encryptedCard != null) {
                 jsonObject.put(KEY_ENCRYPTED_CARD, encryptedCard.getJsonObject());
             }
             if (encryptedSessionKeys != null) {
@@ -135,9 +157,13 @@ public class RegistrationParams implements IJsonRequest {
                 jsonObject.put(KEY_ENCRYPTED_SESSION_KEYS, sessionKeys);
             }
             jsonObject.putOpt(KEY_BIN_NUMBER, this.binNumber);
+            */
         } catch (JSONException e) {
             BNLog.jsonParseError(getClass().getSimpleName(), e);
         }
+        System.out.println("-----------------------------\nToken Request:\n");
+        System.out.println(jsonObject.toString());
+        System.out.println("-----------------------------");
         return jsonObject.toString();
     }
 

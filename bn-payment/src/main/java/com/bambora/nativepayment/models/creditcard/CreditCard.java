@@ -103,11 +103,21 @@ public class CreditCard implements Serializable, IJsonResponse<CreditCard> {
     @Override
     public CreditCard fromJson(JsonContainer jsonContainer) throws JSONException {
         JSONObject jsonObject = jsonContainer.getJsonObject();
-        this.creditCardToken = JsonUtils.getStringIfExists(jsonObject, KEY_RECURRING_PAYMENT_ID);
+
+        // <TEMP>
+        this.creditCardToken = JsonUtils.getStringIfExists(jsonObject, "token");
+        System.out.println("=======================\nToken: "+this.creditCardToken+"\n======================");
+        this.truncatedCardNumber = "4030 XXXX XXXX 1234";
+        this.paymentType = "vi";
+        this.expiryMonth = 4;
+        this.expiryYear = 20;
+        // </TEMP>
+
+        /*this.creditCardToken = JsonUtils.getStringIfExists(jsonObject, KEY_RECURRING_PAYMENT_ID);
         this.truncatedCardNumber = JsonUtils.getStringIfExists(jsonObject, KEY_CARD_NUMBER);
         this.paymentType = JsonUtils.getStringIfExists(jsonObject, KEY_CARD_TYPE);
         this.expiryMonth = JsonUtils.getIntIfExists(jsonObject, KEY_EXPIRY_MONTH);
-        this.expiryYear = JsonUtils.getIntIfExists(jsonObject, KEY_EXPIRY_YEAR);
+        this.expiryYear = JsonUtils.getIntIfExists(jsonObject, KEY_EXPIRY_YEAR);*/
         return this;
     }
 

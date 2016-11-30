@@ -274,7 +274,7 @@ public class BNPaymentHandler {
      * for building and instance of {@link BNPaymentHandler}.
      */
     public static class BNPaymentBuilder {
-        private String baseUrl = "https://eu-native.bambora.com/";
+        private String baseUrl = "https://www.beanstream.com/scripts/tokenization/tokens";//"https://eu-native.bambora.com/";
         private boolean debug;
         private String apiToken;
         private String merchantAccount;

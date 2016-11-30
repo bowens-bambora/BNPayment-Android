@@ -47,6 +47,8 @@ public class NativeCardRegistrationActivity extends AppCompatActivity implements
 
     @Override
     public void onRegistrationSuccess(CreditCard creditCard) {
+        System.out.println("========================================");
+        System.out.println("Token: "+ creditCard.getCreditCardToken());
         finish();
     }
 
